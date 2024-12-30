@@ -124,11 +124,6 @@ setprop ota.progress.next %d
     fd.write(str)
 
     str = \
-'''setprop ota.version.next `getprop ota.version.current`
-'''
-    fd.write(str)
-
-    str = \
 '''if [ ! -e /ota/%s ]
 then
 ''' % (bin_list[bin_list_cnt - 1])
@@ -329,11 +324,7 @@ setprop ota.progress.next %d
 ''' % (ota_progress_list[0])
     fd.write(str)
 
-    if (args.skip_version_check) :
-        str = \
-'''setprop ota.version.next `getprop ota.version.current`
-'''
-    else :
+    if not args.skip_version_check :
         str = \
 '''set version_current `getprop ro.ota.version`
 
@@ -347,8 +338,7 @@ then
 fi
 
 ''' % (args.version[0], args.version[0], args.otalog)
-
-    fd.write(str)
+        fd.write(str)
     # avoid /dev/<xxx> doesn't exist
     i = 0
     while i < path_cnt:
