@@ -31,6 +31,8 @@ struct avb_hash_desc_t {
     uint8_t hash_algorithm[32]; /* Ref: struct AvbHashDescriptor */
     uint32_t digest_len;
     uint8_t digest[64]; /* Max: sha512 */
+    uint32_t rollback_index_location;
+    uint64_t rollback_index;
 };
 
 extern uint64_t g_rollback_index;
